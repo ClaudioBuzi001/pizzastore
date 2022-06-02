@@ -45,7 +45,7 @@ public class UtenteServiceImpl implements UtenteService {
 			utenteDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			return utenteDAO.findOne(id).get();
+			return utenteDAO.findOne(id).orElse(null);
 
 		} catch (Exception e) {
 			e.printStackTrace();

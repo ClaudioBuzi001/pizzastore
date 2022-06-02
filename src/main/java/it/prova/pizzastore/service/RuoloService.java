@@ -1,4 +1,4 @@
-package it.prova.pizzastore.dao;
+package it.prova.pizzastore.service;
 
 import java.util.List;
 

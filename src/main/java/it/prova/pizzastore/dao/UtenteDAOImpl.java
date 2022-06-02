@@ -76,6 +76,14 @@ public class UtenteDAOImpl implements UtenteDAO {
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
+
+	@Override
+	public Utente findOneEager(long id) throws Exception {
+		TypedQuery<Utente> query = entityManager.createQuery("select u from Utente u left join fetch u.ordini o where u.id = :idInp", Utente.class);
+		query.setParameter("idInp", id);
+		
+		return query.getResultStream().findFirst().orElse(null);
+	}
 	
 	//TODO findAllByRuolo
 

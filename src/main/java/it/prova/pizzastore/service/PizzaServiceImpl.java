@@ -1,27 +1,28 @@
-package it.prova.pizzastore.dao;
+package it.prova.pizzastore.service;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import it.prova.pizzastore.model.Ruolo;
+import it.prova.pizzastore.dao.PizzaDAO;
+import it.prova.pizzastore.model.Pizza;
 import it.prova.pizzastore.web.listener.LocalEntityManagerFactoryListener;
 
-public class RuoloServiceImpl implements RuoloService {
+public class PizzaServiceImpl implements PizzaService {
 
-	private RuoloDAO ruoloDAO;
+	private PizzaDAO pizzaDAO;
 
 	@Override
-	public List<Ruolo> listAll() throws Exception {
+	public List<Pizza> listAllElements() throws Exception {
 		// questo è come una connection
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
 			// uso l'injection per il dao
-			ruoloDAO.setEntityManager(entityManager);
+			pizzaDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			return ruoloDAO.list();
+			return pizzaDAO.list();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -32,16 +33,16 @@ public class RuoloServiceImpl implements RuoloService {
 	}
 
 	@Override
-	public Ruolo caricaSingoloElemento(Long id) throws Exception {
+	public Pizza caricaSingoloElemento(Long id) throws Exception {
 		// questo è come una connection
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
 			// uso l'injection per il dao
-			ruoloDAO.setEntityManager(entityManager);
+			pizzaDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			return ruoloDAO.findOne(id).get();
+			return pizzaDAO.findOne(id).orElse(null);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,8 +53,26 @@ public class RuoloServiceImpl implements RuoloService {
 	}
 
 	@Override
-	public void aggiorna(Ruolo ruoloInstance) throws Exception {
-		// questo è come una connection
+	public Pizza caricaSingoloElementoConOrdini(Long id) throws Exception {
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			// uso l'injection per il dao
+			pizzaDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			return pizzaDAO.findOneEager(id);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
+
+	@Override
+	public void aggiorna(Pizza pizzaInstance) throws Exception {
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
@@ -61,10 +80,13 @@ public class RuoloServiceImpl implements RuoloService {
 			entityManager.getTransaction().begin();
 
 			// uso l'injection per il dao
-			ruoloDAO.setEntityManager(entityManager);
+			pizzaDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			ruoloDAO.update(ruoloInstance);
+			// grazie al fatto che il regista ha un id viene eseguito il merge
+			// automaticamente
+			// se quell'id non ha un corrispettivo in tabella viene lanciata una eccezione
+			pizzaDAO.update(pizzaInstance);
 
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
@@ -78,8 +100,7 @@ public class RuoloServiceImpl implements RuoloService {
 	}
 
 	@Override
-	public void inserisciNuovo(Ruolo ruoloInstance) throws Exception {
-		// questo è come una connection
+	public void inserisciNuovo(Pizza pizzaInstance) throws Exception {
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
@@ -87,10 +108,13 @@ public class RuoloServiceImpl implements RuoloService {
 			entityManager.getTransaction().begin();
 
 			// uso l'injection per il dao
-			ruoloDAO.setEntityManager(entityManager);
+			pizzaDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			ruoloDAO.insert(ruoloInstance);
+			// grazie al fatto che il regista ha un id viene eseguito il merge
+			// automaticamente
+			// se quell'id non ha un corrispettivo in tabella viene lanciata una eccezione
+			pizzaDAO.insert(pizzaInstance);
 
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
@@ -100,39 +124,17 @@ public class RuoloServiceImpl implements RuoloService {
 		} finally {
 			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
 		}
-
 	}
 
 	@Override
-	public void rimuovi(Ruolo ruoloInstance) throws Exception {
+	public void rimuovi(Long idPizza) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setRuoloDAO(RuoloDAO ruoloDAO) {
-		this.ruoloDAO = ruoloDAO;
-	}
-
-	@Override
-	public Ruolo cercaPerDescrizioneECodice(String descrizione, String codice) throws Exception {
-		// questo è come una connection
-		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
-
-		try {
-			// uso l'injection per il dao
-			ruoloDAO.setEntityManager(entityManager);
-
-			// eseguo quello che realmente devo fare
-			return ruoloDAO.findByDescrizioneAndCodice(descrizione, codice);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
-		}
-
+	public void setPizzaDAO(PizzaDAO pizzaDAO) {
+		this.pizzaDAO = pizzaDAO;
 	}
 
 }
