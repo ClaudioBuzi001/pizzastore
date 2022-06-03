@@ -12,7 +12,7 @@ import it.prova.pizzastore.model.Ruolo;
 
 public class UtilityForm {
 
-	public static Pizza initializePizzaFromParams(String descrizioneParam, String ingredientiParam,
+	public static Pizza createPizzaFromParams(String descrizioneParam, String ingredientiParam,
 			String prezzoBaseParam) {
 
 		Pizza result = new Pizza(descrizioneParam, ingredientiParam);
@@ -34,7 +34,7 @@ public class UtilityForm {
 		}
 	}
 
-	public static Cliente initializeClienteFromParams(String nomeParam, String cognomeParam, String indirizzoParam) {
+	public static Cliente createClienteFromParams(String nomeParam, String cognomeParam, String indirizzoParam) {
 		Cliente result = new Cliente(nomeParam, cognomeParam, indirizzoParam);
 
 		return result;
