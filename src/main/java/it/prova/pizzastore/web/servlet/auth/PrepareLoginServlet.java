@@ -1,4 +1,4 @@
-package it.prova.pizzastore.web.servlet;
+package it.prova.pizzastore.web.servlet.auth;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

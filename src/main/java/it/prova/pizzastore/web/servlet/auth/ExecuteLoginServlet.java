@@ -1,4 +1,4 @@
-package it.prova.pizzastore.web.servlet;
+package it.prova.pizzastore.web.servlet.auth;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -63,21 +63,21 @@ public class ExecuteLoginServlet extends HttpServlet {
 				// controllo se
 				// é un admin, lò mando a homeAdmin.jsp
 				if (UtilityForm.controllaSeRuoloPresenteInRuoliDiUtente(utenteInstance.getRuoli(), "ADMIN_ROLE")) {
-					request.getRequestDispatcher("homeAdmin.jsp").forward(request, response);
+					request.getRequestDispatcher("ExecuteHomeAdminServlet").forward(request, response); //TODO SERVLET CHE RIPORTANO ALLA FINESTRA BASE
 
 					return;
 				}
 
 				// è un pizzaiolo lo mando a homePizaiolo.jsp
 				if (UtilityForm.controllaSeRuoloPresenteInRuoliDiUtente(utenteInstance.getRuoli(), "PIZZAIOLO_ROLE")) {
-					request.getRequestDispatcher("homePizzaiolo.jsp").forward(request, response);
+					request.getRequestDispatcher("homePizzaiolo").forward(request, response); //TODO SERVLET CHE RIPORTANO ALLA FINESTRA BASE
 
 					return;
 				}
 
 				// è un fattorino lo mando a resultFattorino.jsp
 				if (UtilityForm.controllaSeRuoloPresenteInRuoliDiUtente(utenteInstance.getRuoli(), "FATTORINO_ROLE")) {
-					request.getRequestDispatcher("resultFattorino.jsp").forward(request, response);
+					request.getRequestDispatcher("resultFattorino").forward(request, response);  //TODO SERVLET CHE RIPORTANO ALLA FINESTRA BASE
 
 					return;
 				}
