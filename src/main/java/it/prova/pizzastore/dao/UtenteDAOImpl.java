@@ -93,7 +93,13 @@ public class UtenteDAOImpl implements UtenteDAO {
 				Utente.class);
 		query.setParameter("ruolo", ruoloInstance);
 		
-		return query.getResultStream().findFirst().orElse(null);
+		try {
+			return query.getResultStream().findFirst().orElse(null);
+
+		}catch(Exception e) {
+			//Se si entra qui, vuol dire che la query non ha trovato risultati, quindi returno null;
+			return null;
+		}
 	}
 
 }
