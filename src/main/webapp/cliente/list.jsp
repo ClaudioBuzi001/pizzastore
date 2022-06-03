@@ -50,7 +50,7 @@
 				                    </tr>
 				                </thead>
 				                <tbody>
-				                	<c:forEach var="clientiItem" items="list_clienti_att">
+				                	<c:forEach items="${list_clienti_att}" var="clienteItem">
 										<tr>
 											<td>${clienteItem.nome}</td>
 											<td>${clienteItem.cognome}</td>

@@ -46,19 +46,14 @@ public class ExecuteListClientiServlet extends HttpServlet {
 			//gli passo la lista di clienti
 			request.setAttribute("list_clienti_att", MyServiceFactory.getClienteServiceInstance().listAllElements());
 			
+			request.getRequestDispatcher("/cliente/list.jsp").forward(request, response);
+			return;
 		}catch(Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
-			request.getRequestDispatcher("homeAdmin.jsp").forward(request, response);
+			request.getRequestDispatcher("/cliente/homeAdmin.jsp").forward(request, response);
 			return;
 		}
-		
-		
-		request.getRequestDispatcher("/cliente/list.jsp").forward(request, response);
-		
-		
-		
-		
 		
 
 	}
