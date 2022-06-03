@@ -21,5 +21,7 @@ public interface ClienteService {
 	public void rimuovi(Long idCliente) throws Exception;
 	
 	public void setClienteDAO(ClienteDAO clienteDAO);
+	
+	public List<Cliente> listAllAttivi() throws Exception;
 
 }

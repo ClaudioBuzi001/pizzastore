@@ -61,5 +61,14 @@ public class ClienteDAOImpl implements ClienteDAO {
 
 		return query.getResultStream().findFirst().orElse(null);
 	}
+	
+	
+	//voglio un metodo che mi returna la lista di tutti i clienti attivi
+	@Override
+	public List<Cliente> findAllAttivi() throws Exception{
+		
+		return entityManager.createQuery("select c from Cliente c where c.attivo = true", Cliente.class).getResultList();
+		
+	}
 
 }
