@@ -1,6 +1,7 @@
 package it.prova.pizzastore.web.listener;
 
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,6 +10,13 @@ import javax.persistence.PersistenceException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+
+import it.prova.pizzastore.model.Ruolo;
+import it.prova.pizzastore.model.StatoUtente;
+import it.prova.pizzastore.model.Utente;
+import it.prova.pizzastore.service.MyServiceFactory;
+import it.prova.pizzastore.service.RuoloService;
+import it.prova.pizzastore.service.UtenteService;
 
 /**
  * Application Lifecycle Listener implementation class
@@ -61,33 +69,54 @@ public class LocalEntityManagerFactoryListener implements ServletContextListener
 		}
 	}
 
-//	private void initAdminUserAndRuoli() throws Exception {
-//		RuoloService ruoloServiceInstance = MyServiceFactory.getRuoloServiceInstance();
-//		UtenteService utenteServiceInstance = MyServiceFactory.getUtenteServiceInstance();
-//
-//		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", "ROLE_ADMIN") == null) {
-//			ruoloServiceInstance.inserisciNuovo(new Ruolo("Administrator", "ROLE_ADMIN"));
-//		}
-//
-//		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", "ROLE_CLASSIC_USER") == null) {
-//			ruoloServiceInstance.inserisciNuovo(new Ruolo("Classic User", "ROLE_CLASSIC_USER"));
-//		}
-//
-//		if (utenteServiceInstance.findByUsernameAndPassword("admin", "admin") == null) {
-//			Utente admin = new Utente("admin", "admin", "Mario", "Rossi", new Date());
-//			admin.setStato(StatoUtente.ATTIVO);
-//			utenteServiceInstance.inserisciNuovo(admin);
-//			utenteServiceInstance.aggiungiRuolo(admin,
-//					ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", "ROLE_ADMIN"));
-//		}
-//		
-//		if (utenteServiceInstance.findByUsernameAndPassword("user", "user") == null) {
-//			Utente user = new Utente("user", "user", "GIORGIO", "Rossi", new Date());
-//			user.setStato(StatoUtente.ATTIVO);
-//			utenteServiceInstance.inserisciNuovo(user);
-//			utenteServiceInstance.aggiungiRuolo(user,
-//					ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", "ROLE_CLASSIC_USER"));
-//		}
-//	}
+	private void initUsersAndRuoli() throws Exception {
+		RuoloService ruoloServiceInstance = MyServiceFactory.getRuoloServiceInstance();
+		UtenteService utenteServiceInstance = MyServiceFactory.getUtenteServiceInstance();
+
+		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", "ADMIN_ROLE") == null) {
+			ruoloServiceInstance.inserisciNuovo(new Ruolo("Administrator", "ADMIN_ROLE"));
+		}
+
+		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Pizzaiolo", "PIZZAIOLO_ROLE") == null) {
+			ruoloServiceInstance.inserisciNuovo(new Ruolo("Pizzaiolo", "PIZZAIOLO_ROLE"));
+		}
+
+		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino", "FATTORINO_ROLE") == null) {
+			ruoloServiceInstance.inserisciNuovo(new Ruolo("Fattorino", "FATTORINO_ROLE"));
+		}
+
+		// se il metodocheck returna false, allora ci creaiamo un nuovo admin
+		if (!utenteServiceInstance.checkSeCeAlmenoUn(new Ruolo("Administrator", "ADMIN_ROLE"))) {
+
+			HashSet<Ruolo> ruolo = new HashSet<Ruolo>();
+			ruolo.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", "ADMIN_ROLE"));
+
+			Utente admin = new Utente("admin", "admin", "Clodio", "Marcelli", new Date(), StatoUtente.ATTIVO, ruolo);
+
+			utenteServiceInstance.inserisciNuovo(admin);
+
+		}
+
+		if (!utenteServiceInstance.checkSeCeAlmenoUn(new Ruolo("Pizzaiolo", "PIZZAIOLO_ROLE"))) {
+			HashSet<Ruolo> ruolo = new HashSet<Ruolo>();
+			ruolo.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Pizzaiolo", "PIZZAIOLO_ROLE"));
+
+			Utente pizzaiolo = new Utente("pizzaiolo", "pizzaiolo", "Giorgione", "Nazionale", new Date(),
+					StatoUtente.ATTIVO, ruolo);
+
+			utenteServiceInstance.inserisciNuovo(pizzaiolo);
+
+		}
+
+		if (!utenteServiceInstance.checkSeCeAlmenoUn(new Ruolo("Fattorino", "FATTORINO_ROLE"))) {
+			HashSet<Ruolo> ruolo = new HashSet<Ruolo>();
+			ruolo.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino", "FATTORINO_ROLE"));
+
+			Utente fattorino = new Utente("fattorino", "fattorino", "Lucilla", "Basilicata", new Date(),
+					StatoUtente.ATTIVO, ruolo);
+
+			utenteServiceInstance.inserisciNuovo(fattorino);
+		}
+	}
 
 }

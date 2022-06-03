@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import it.prova.pizzastore.model.Utente;
+import it.prova.pizzastore.model.Ruolo;
 import it.prova.pizzastore.model.StatoUtente;
 
 public class UtenteDAOImpl implements UtenteDAO {
@@ -85,6 +86,14 @@ public class UtenteDAOImpl implements UtenteDAO {
 		return query.getResultStream().findFirst().orElse(null);
 	}
 	
-	//TODO findAllByRuolo
+
+	@Override
+	public Utente checkSeCeAlmenoUn(Ruolo ruoloInstance) throws Exception{
+		TypedQuery<Utente> query = entityManager.createQuery("select u FROM Utente u join u.ruoli r where r = :ruolo",
+				Utente.class);
+		query.setParameter("ruolo", ruoloInstance);
+		
+		return query.getResultStream().findFirst().orElse(null);
+	}
 
 }

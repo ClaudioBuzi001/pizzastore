@@ -216,4 +216,38 @@ public class UtenteServiceImpl implements UtenteService {
 
 	}
 
+	@Override
+	public boolean checkSeCeAlmenoUn(Ruolo ruoloInstance) throws Exception {
+		// questo è come una connection
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			// uso l'injection per il dao
+			utenteDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			if(utenteDAO.checkSeCeAlmenoUn(ruoloInstance) == null)
+				return false;
+			
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+

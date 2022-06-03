@@ -110,7 +110,7 @@ public class Utente {
 	}
 
 	public Utente(String username, String password, String nome, String cognome, Date dateCreated, StatoUtente stato,
-			Set<Ordine> ordini) {
+			Set<Ruolo> ruoli) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -118,8 +118,20 @@ public class Utente {
 		this.cognome = cognome;
 		this.dateCreated = dateCreated;
 		this.stato = stato;
-		this.ordini = ordini;
+		this.ruoli = ruoli;
 	}
+//
+//	public Utente(String username, String password, String nome, String cognome, Date dateCreated, StatoUtente stato,
+//			Set<Ordine> ordini) {
+//		super();
+//		this.username = username;
+//		this.password = password;
+//		this.nome = nome;
+//		this.cognome = cognome;
+//		this.dateCreated = dateCreated;
+//		this.stato = stato;
+//		this.ordini = ordini;
+//	}
 
 	public Long getId() {
 		return id;
@@ -192,9 +204,5 @@ public class Utente {
 	public void setOrdini(Set<Ordine> ordini) {
 		this.ordini = ordini;
 	}
-	
-	
-	
-	 
 
 }
