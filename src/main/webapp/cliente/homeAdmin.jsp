@@ -52,7 +52,7 @@
 				      <div class="container-fluid py-5">
 				        <h1 class="display-5 fw-bold">Benvenuto alla Gestione Dei Clienti</h1>
 				        <p class="col-md-8 fs-4">Usa le nostre ultimissime funzionalità che ti permetteranno di gestire al meglio i tuoi clienti!</p>
-				        <a class="btn btn-primary btn-lg" href="PrepareSearchClientiServlet">Vai a Ricerca Clienti</a>
+				        <a class="btn btn-primary btn-lg" href="ExecuteListClientiServlet">Visualizza tutti i Clienti</a>
 				      </div>
 			    </div>
 			    
@@ -80,6 +80,18 @@
 			        <h2>Inserisci Nuovo Cliente</h2>
 			        <p>Inserisci un nuovo Cliente, aiuta i pizzaioli di tutto il mondo a far crescere la loro attività.</p>
 			        <a href="PrepareInsertClienteServlet" class="icon-link">
+			          Vai alla funzionalità
+			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
+			        </a>
+			      </div>
+			      <div class="feature col">
+			        <div class="feature-icon bg-primary bg-gradient">
+			          <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"/></svg>
+			        </div>
+			        <h2>Mostra Clienti</h2>
+			        <p>Visualizza tutti i clienti della nostra applicazione.</p>
+			        <br>
+			        <a href="ExecuteListClientiServlet" class="icon-link">
 			          Vai alla funzionalità
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>
