@@ -21,7 +21,7 @@ public class Pizza {
 	@Column(name = "id")
 	private long id;
 	@Column(name = "descrizione")
-	private String descrizione;
+	private String descrizione; // SARA IL NOSTRO NOME
 	@Column(name = "ingredienti")
 	private String ingredienti;
 	@Column(name = "prezzobase")
@@ -58,6 +58,12 @@ public class Pizza {
 		this.ingredienti = ingredienti;
 		this.prezzoBase = prezzoBase;
 		this.ordini = ordini;
+	}
+
+	public Pizza(String descrizione, String ingredienti) {
+		super();
+		this.descrizione = descrizione;
+		this.ingredienti = ingredienti;
 	}
 
 	public Pizza(long id, String descrizione, String ingredienti, Integer prezzoBase) {
