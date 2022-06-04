@@ -1,4 +1,4 @@
-package it.prova.pizzastore.web.servlet;
+package it.prova.pizzastore.web.servlet.pizza;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ExecuteHomePizzaioloServlet
+ * Servlet implementation class ExecuteShowPizzaServlet
  */
-@WebServlet("/ExecuteHomePizzaioloServlet")
-public class ExecuteHomePizzaioloServlet extends HttpServlet {
+@WebServlet("/ExecuteShowPizzaServlet")
+public class ExecuteShowPizzaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ExecuteHomePizzaioloServlet() {
+    public ExecuteShowPizzaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,7 @@ public class ExecuteHomePizzaioloServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/pizzaiolo/homePizza.jsp").forward(request, response);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class ExecuteHomePizzaioloServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/pizzaiolo/homePizzaiolo.jsp").forward(request, response);
+		doGet(request, response);
 	}
 
 }
