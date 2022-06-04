@@ -70,7 +70,7 @@ public class ExecuteLoginServlet extends HttpServlet {
 
 				// è un pizzaiolo lo mando a homePizaiolo.jsp
 				if (UtilityForm.controllaSeRuoloPresenteInRuoliDiUtente(utenteInstance.getRuoli(), "PIZZAIOLO_ROLE")) {
-					request.getRequestDispatcher("homePizzaiolo").forward(request, response); //TODO SERVLET CHE RIPORTANO ALLA FINESTRA BASE
+					request.getRequestDispatcher("ExecuteHomePizzaioloServlet").forward(request, response); //TODO SERVLET CHE RIPORTANO ALLA FINESTRA BASE
 
 					return;
 				}

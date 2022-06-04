@@ -10,4 +10,6 @@ public interface ClienteDAO extends IBaseDAO<Cliente>{
 	public Cliente findOneEager(Long id) throws Exception;
 	
 	public List<Cliente> findAllAttivi() throws Exception;
+	
+	public List<Cliente> findAllByExample(Cliente example) throws Exception;
 }

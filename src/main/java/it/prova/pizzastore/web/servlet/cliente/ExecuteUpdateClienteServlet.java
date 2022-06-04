@@ -60,7 +60,7 @@ public class ExecuteUpdateClienteServlet extends HttpServlet {
 		try {
 			MyServiceFactory.getClienteServiceInstance().aggiorna(clienteInstance);
 
-			request.setAttribute("list_clienti_att", MyServiceFactory.getClienteServiceInstance().listAllElements());
+			request.setAttribute("list_clienti_att", MyServiceFactory.getClienteServiceInstance().listAllAttivi());
 			request.setAttribute("successMessage", "Operazione effettuata con successo");
 
 		} catch (Exception e) {

@@ -44,7 +44,7 @@ public class ExecuteListClientiServlet extends HttpServlet {
 				request.setAttribute("errorMessage", "Clienti non trovati.");
 			
 			//gli passo la lista di clienti
-			request.setAttribute("list_clienti_att", MyServiceFactory.getClienteServiceInstance().listAllElements());
+			request.setAttribute("list_clienti_att", MyServiceFactory.getClienteServiceInstance().listAllAttivi());
 			
 			request.getRequestDispatcher("/cliente/list.jsp").forward(request, response);
 			return;

@@ -23,5 +23,7 @@ public interface ClienteService {
 	public void setClienteDAO(ClienteDAO clienteDAO);
 	
 	public List<Cliente> listAllAttivi() throws Exception;
+	
+	public List<Cliente> cerca(Cliente example) throws Exception;
 
 }

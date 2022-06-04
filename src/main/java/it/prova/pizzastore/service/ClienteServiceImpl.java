@@ -98,7 +98,6 @@ public class ClienteServiceImpl implements ClienteService {
 			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
 		}
 
-
 	}
 
 	@Override
@@ -127,7 +126,6 @@ public class ClienteServiceImpl implements ClienteService {
 			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
 		}
 
-
 	}
 
 	@Override
@@ -141,7 +139,7 @@ public class ClienteServiceImpl implements ClienteService {
 		this.clienteDAO = clienteDAO;
 
 	}
-	
+
 	@Override
 	public List<Cliente> listAllAttivi() throws Exception {
 		// questo è come una connection
@@ -153,6 +151,26 @@ public class ClienteServiceImpl implements ClienteService {
 
 			// eseguo quello che realmente devo fare
 			return clienteDAO.findAllAttivi();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
+
+	@Override
+	public List<Cliente> cerca(Cliente example) throws Exception {
+		// questo è come una connection
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			// uso l'injection per il dao
+			clienteDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			return clienteDAO.findAllByExample(example);
 
 		} catch (Exception e) {
 			e.printStackTrace();
