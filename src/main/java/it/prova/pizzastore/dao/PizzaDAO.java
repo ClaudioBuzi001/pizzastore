@@ -7,5 +7,7 @@ import it.prova.pizzastore.model.Pizza;
 public interface PizzaDAO extends IBaseDAO<Pizza>{
 	
 	public Pizza findOneEager(Long id) throws Exception;
+	
+	public void deleteLogico(Pizza pizzaInstance) throws Exception;
 
 }

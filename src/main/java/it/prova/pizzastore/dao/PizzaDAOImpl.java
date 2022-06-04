@@ -14,7 +14,7 @@ public class PizzaDAOImpl implements PizzaDAO {
 
 	@Override
 	public List<Pizza> list() throws Exception {
-		return entityManager.createQuery("from Pizza", Pizza.class).getResultList();
+		return entityManager.createQuery("from Pizza p where p.attivo = true", Pizza.class).getResultList();
 	}
 
 	@Override
@@ -60,6 +60,17 @@ public class PizzaDAOImpl implements PizzaDAO {
 		query.setParameter("idInp", id);
 
 		return query.getResultStream().findFirst().orElse(null);
+	}
+
+	@Override
+	public void deleteLogico(Pizza pizzaInstance) throws Exception {
+		if(pizzaInstance == null)
+			throw new Exception("Input non valido");
+		
+		pizzaInstance.setAttivo(false);
+		
+		entityManager.merge(pizzaInstance);
+		
 	}
 
 }

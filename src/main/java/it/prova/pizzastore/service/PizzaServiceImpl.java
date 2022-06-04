@@ -137,4 +137,28 @@ public class PizzaServiceImpl implements PizzaService {
 		this.pizzaDAO = pizzaDAO;
 	}
 
+	@Override
+	public void rimuoviLogico(Long idPizza) throws Exception {
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			// questo è come il MyConnection.getConnection()
+			entityManager.getTransaction().begin();
+
+			// uso l'injection per il dao
+			pizzaDAO.setEntityManager(entityManager);
+
+			pizzaDAO.deleteLogico(pizzaDAO.findOne(idPizza).orElse(null));
+
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+		
+	}
+
 }

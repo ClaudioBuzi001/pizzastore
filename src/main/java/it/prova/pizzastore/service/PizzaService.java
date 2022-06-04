@@ -22,4 +22,6 @@ public interface PizzaService {
 	public void rimuovi(Long idPizza) throws Exception;
 	
 	public void setPizzaDAO(PizzaDAO pizzaDAO);
+	
+	public void rimuoviLogico(Long idPizza) throws Exception;
 }
