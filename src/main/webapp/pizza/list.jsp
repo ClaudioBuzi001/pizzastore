@@ -14,7 +14,7 @@
 	<body class="d-flex flex-column h-100">
 	 
 		<!-- Fixed navbar -->
-		<jsp:include page="../navbar.jsp"></jsp:include>
+		<jsp:include page="./navbarPizza.jsp"></jsp:include>
 	 
 	
 		<!-- Begin page content -->
@@ -56,9 +56,9 @@
 											<td>${pizzaItem.ingredienti }</td>
 											<td>${pizzaItem.prezzoBase }</td>
 											<td>
-												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/pizza/ExecuteShowPizzaServlet?idPizza=${pizzaItem.id}">Visualizza</a>
-												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="${pageContext.request.contextPath}/pizza/PrepareUpdatePizzaServlet?idPizza=${pizzaItem.id}">Edit</a>
-												<a class="btn btn-outline-danger btn-sm" href="${pageContext.request.contextPath}/pizza/PrepareDeletePizzaServlet?idPizza=${pizzaItem.id}">Delete</a>
+												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/ExecuteShowPizzaServlet?idPizza=${pizzaItem.id}">Visualizza</a>
+												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="${pageContext.request.contextPath}/PrepareUpdatePizzaServlet?idPizza=${pizzaItem.id}">Edit</a>
+												<a class="btn btn-outline-danger btn-sm" href="${pageContext.request.contextPath}/PrepareDeletePizzaServlet?idPizza=${pizzaItem.id}">Delete</a>
 											</td>
 										</tr>
 									</c:forEach>

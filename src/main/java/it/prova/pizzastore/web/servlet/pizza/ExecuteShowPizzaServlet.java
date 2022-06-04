@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
+import it.prova.pizzastore.model.Pizza;
+import it.prova.pizzastore.service.MyServiceFactory;
+
 /**
  * Servlet implementation class ExecuteShowPizzaServlet
  */
@@ -22,20 +27,38 @@ public class ExecuteShowPizzaServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String idPizzaInput = request.getParameter("idPizza");
+		if (!NumberUtils.isCreatable(idPizzaInput)) {
+			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
+			request.getRequestDispatcher("/pizza/list.jsp").forward(request, response);
+			return;
+		}
+
+		try {
+			Pizza pizzaInstance = MyServiceFactory.getPizzaServiceInstance()
+					.caricaSingoloElemento(Long.parseLong(idPizzaInput));
+
+			if (pizzaInstance == null) {
+				request.setAttribute("errorMessage", "Elemento non trovato.");
+				request.getRequestDispatcher("ExecuteListPizzeServlet?operationResult=NOT_FOUND").forward(request,
+						response);
+				return;
+			}
+
+			request.setAttribute("pizza_visualizza_att", pizzaInstance);
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
+			request.getRequestDispatcher("/pizze/home.jsp").forward(request, response);
+			return;
+		}
+
+		request.getRequestDispatcher("/pizza/show.jsp").forward(request, response);
+	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+	
 
 }
