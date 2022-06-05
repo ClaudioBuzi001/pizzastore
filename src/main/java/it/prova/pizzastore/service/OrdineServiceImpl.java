@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import it.prova.pizzastore.dao.OrdineDAO;
 import it.prova.pizzastore.model.Ordine;
 import it.prova.pizzastore.model.Pizza;
+import it.prova.pizzastore.model.Utente;
 import it.prova.pizzastore.web.listener.LocalEntityManagerFactoryListener;
 
 public class OrdineServiceImpl implements OrdineService {
@@ -198,6 +199,24 @@ public class OrdineServiceImpl implements OrdineService {
 		} finally {
 			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
 
+		}
+	}
+
+	@Override
+	public List<Ordine> listAllAttiviDiFattorino(Utente utente) throws Exception {
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+
+			ordineDAO.setEntityManager(entityManager);
+
+			return ordineDAO.findAllAttiviOfFattorino(utente);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
 		}
 	}
 

@@ -1,6 +1,9 @@
 package it.prova.pizzastore.dao;
 
+import java.util.List;
+
 import it.prova.pizzastore.model.Ordine;
+import it.prova.pizzastore.model.Utente;
 
 public interface OrdineDAO extends IBaseDAO<Ordine>{
 	
@@ -11,5 +14,6 @@ public interface OrdineDAO extends IBaseDAO<Ordine>{
 
 	public Integer sumPizzeOrdine(Ordine ordineInstance) throws Exception;
 	
+	public List<Ordine> findAllAttiviOfFattorino(Utente utente) throws Exception;
 	
 }

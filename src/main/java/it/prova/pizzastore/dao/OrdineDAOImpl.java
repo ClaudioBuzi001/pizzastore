@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import it.prova.pizzastore.model.Ordine;
+import it.prova.pizzastore.model.Utente;
 
 public class OrdineDAOImpl implements OrdineDAO {
 
@@ -26,17 +27,17 @@ public class OrdineDAOImpl implements OrdineDAO {
 
 	@Override
 	public void update(Ordine input) throws Exception {
-		if(input == null)
+		if (input == null)
 			throw new Exception("ERRORE IN INPUT");
-		
+
 		input = entityManager.merge(input);
 	}
 
 	@Override
 	public void insert(Ordine input) throws Exception {
-		if(input == null)
+		if (input == null)
 			throw new Exception("ERRORE IN INPUT");
-		
+
 		entityManager.persist(input);
 	}
 
@@ -53,25 +54,39 @@ public class OrdineDAOImpl implements OrdineDAO {
 
 	@Override
 	public Ordine findOneEagerClienteEUtente(Long id) throws Exception {
-		TypedQuery<Ordine> query = entityManager.createQuery("select o from Ordine o left join fetch o.cliente left join fetch o.utente where o.id = :idInp", Ordine.class );
+		TypedQuery<Ordine> query = entityManager.createQuery(
+				"select o from Ordine o left join fetch o.cliente left join fetch o.utente where o.id = :idInp",
+				Ordine.class);
 		query.setParameter("idInp", id);
-		
+
 		return query.getResultStream().findFirst().orElse(null);
 	}
 
 	@Override
 	public Ordine findOneEagerAll(Long id) throws Exception {
-		TypedQuery<Ordine> query = entityManager.createQuery("select o from Ordine o left join fetch o.cliente left join fetch o.utente left join fetch o.pizze where o.id = :idInp", Ordine.class );
+		TypedQuery<Ordine> query = entityManager.createQuery(
+				"select o from Ordine o left join fetch o.cliente left join fetch o.utente left join fetch o.pizze where o.id = :idInp",
+				Ordine.class);
 		query.setParameter("idInp", id);
-		
+
 		return query.getResultStream().findFirst().orElse(null);
 	}
 
 	@Override
 	public Integer sumPizzeOrdine(Ordine ordineInstance) throws Exception {
-		TypedQuery<Long> query = entityManager.createQuery("select sum(p.prezzoBase) from Ordine o join o.pizze p where o.id = :id", Long.class);
-		
+		TypedQuery<Long> query = entityManager
+				.createQuery("select sum(p.prezzoBase) from Ordine o join o.pizze p where o.id = :id", Long.class);
+
 		return query.setParameter("id", ordineInstance.getId()).getSingleResult().intValue();
+	}
+
+	@Override
+	public List<Ordine> findAllAttiviOfFattorino(Utente utente) throws Exception {
+		TypedQuery<Ordine> query = entityManager
+				.createQuery("select o from Ordine o join o.utente u where o.closed = false and u.id = :id ", Ordine.class);
+
+		return query.setParameter("id", utente.getId()).getResultList();
+
 	}
 
 }
