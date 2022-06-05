@@ -9,4 +9,7 @@ public interface OrdineDAO extends IBaseDAO<Ordine>{
 	//eager cliente utente e pizze
 	public Ordine findOneEagerAll(Long id) throws Exception;
 
+	public Integer sumPizzeOrdine(Ordine ordineInstance) throws Exception;
+	
+	
 }

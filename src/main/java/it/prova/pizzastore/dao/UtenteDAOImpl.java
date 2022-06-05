@@ -89,9 +89,9 @@ public class UtenteDAOImpl implements UtenteDAO {
 
 	@Override
 	public Utente checkSeCeAlmenoUn(Ruolo ruoloInstance) throws Exception{
-		TypedQuery<Utente> query = entityManager.createQuery("select u FROM Utente u join u.ruoli r where r = :ruolo",
+		TypedQuery<Utente> query = entityManager.createQuery("select u FROM Utente u join u.ruoli r where r.codice = :ruolo",
 				Utente.class);
-		query.setParameter("ruolo", ruoloInstance);
+		query.setParameter("ruolo", ruoloInstance.getCodice());
 		
 		try {
 			return query.getResultStream().findFirst().orElse(null);
@@ -100,6 +100,15 @@ public class UtenteDAOImpl implements UtenteDAO {
 			//Se si entra qui, vuol dire che la query non ha trovato risultati, quindi returno null;
 			return null;
 		}
+	}
+
+	@Override
+	public List<Utente> findAllByRuolo(Ruolo ruoloInstance) throws Exception {
+		TypedQuery<Utente> query = entityManager.createQuery("select u FROM Utente u join u.ruoli r where r = :ruolo",
+				Utente.class);
+		query.setParameter("ruolo", ruoloInstance);
+		
+		return query.getResultList();
 	}
 
 }

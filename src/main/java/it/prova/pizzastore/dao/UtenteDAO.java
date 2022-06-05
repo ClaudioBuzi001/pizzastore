@@ -1,5 +1,6 @@
 package it.prova.pizzastore.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import it.prova.pizzastore.model.Ruolo;
@@ -14,6 +15,8 @@ public interface UtenteDAO extends IBaseDAO<Utente>{
 	public Utente findOneEager(long id) throws Exception;
 	
 	public Utente checkSeCeAlmenoUn(Ruolo ruoloInstance) throws Exception;
+	
+	public List<Utente> findAllByRuolo(Ruolo ruoloInstance) throws Exception;
 	
 	
 }

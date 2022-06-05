@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse" id="navbarsExample07">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="ExecuteHomeAdminServlet">Home</a>
+            <a class="nav-link active" aria-current="page" href="ExecuteHomePizzaioloServlet">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -21,8 +21,8 @@
             <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown07">
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ExecuteHomePizzaioloServlet">Home</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareSearchPizzaServlet">Ricerca Pizze</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareSearchPizzaServlet">Ricerca Ordini</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareSearchOrdineServlet">Ricerca Oridni</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/PrepareInsertOrdineServlet">Aggiungi Ordini</a></li>
             </ul> 
           </li>   
         </ul>

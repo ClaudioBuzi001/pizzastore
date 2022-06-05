@@ -27,6 +27,8 @@ public interface UtenteService {
 	public Utente accedi(String username, String password) throws Exception;
 	
 	public boolean checkSeCeAlmenoUn(Ruolo ruoloInstance) throws Exception;
+	
+	public List<Utente> trovaTuttiPerRuolo(Ruolo ruoloIstance) throws Exception;
 
 	// per injection
 	public void setUtenteDAO(UtenteDAO utenteDAO);

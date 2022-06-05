@@ -226,9 +226,9 @@ public class UtenteServiceImpl implements UtenteService {
 			utenteDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			if(utenteDAO.checkSeCeAlmenoUn(ruoloInstance) == null)
+			if (utenteDAO.checkSeCeAlmenoUn(ruoloInstance) == null)
 				return false;
-			
+
 			return true;
 
 		} catch (Exception e) {
@@ -239,15 +239,24 @@ public class UtenteServiceImpl implements UtenteService {
 		}
 	}
 
+	@Override
+	public List<Utente> trovaTuttiPerRuolo(Ruolo ruoloIstance) throws Exception {
+		// questo è come una connection
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			// uso l'injection per il dao
+			utenteDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			return utenteDAO.findAllByRuolo(ruoloIstance);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-

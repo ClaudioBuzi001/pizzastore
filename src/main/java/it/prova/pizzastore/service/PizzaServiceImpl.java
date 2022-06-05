@@ -158,7 +158,26 @@ public class PizzaServiceImpl implements PizzaService {
 		} finally {
 			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
 		}
-		
+
+	}
+
+	@Override
+	public List<Pizza> cerca(Pizza example) throws Exception {
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			// uso l'injection per il dao
+			pizzaDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			return pizzaDAO.findByExample(example);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 	}
 
 }

@@ -53,7 +53,7 @@ public class OrdineDAOImpl implements OrdineDAO {
 
 	@Override
 	public Ordine findOneEagerClienteEUtente(Long id) throws Exception {
-		TypedQuery<Ordine> query = entityManager.createQuery("select o from Ordine left join fetch o.cliente left join fetch o.utente where o.id = :idInp", Ordine.class );
+		TypedQuery<Ordine> query = entityManager.createQuery("select o from Ordine o left join fetch o.cliente left join fetch o.utente where o.id = :idInp", Ordine.class );
 		query.setParameter("idInp", id);
 		
 		return query.getResultStream().findFirst().orElse(null);
@@ -61,10 +61,17 @@ public class OrdineDAOImpl implements OrdineDAO {
 
 	@Override
 	public Ordine findOneEagerAll(Long id) throws Exception {
-		TypedQuery<Ordine> query = entityManager.createQuery("select o from Ordine left join fetch o.cliente left join fetch o.utente left join fetch o.pizze where o.id = :idInp", Ordine.class );
+		TypedQuery<Ordine> query = entityManager.createQuery("select o from Ordine o left join fetch o.cliente left join fetch o.utente left join fetch o.pizze where o.id = :idInp", Ordine.class );
 		query.setParameter("idInp", id);
 		
 		return query.getResultStream().findFirst().orElse(null);
+	}
+
+	@Override
+	public Integer sumPizzeOrdine(Ordine ordineInstance) throws Exception {
+		TypedQuery<Long> query = entityManager.createQuery("select sum(p.prezzoBase) from Ordine o join o.pizze p where o.id = :id", Long.class);
+		
+		return query.setParameter("id", ordineInstance.getId()).getSingleResult().intValue();
 	}
 
 }

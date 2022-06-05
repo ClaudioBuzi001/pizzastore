@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import it.prova.pizzastore.dao.OrdineDAO;
 import it.prova.pizzastore.model.Ordine;
+import it.prova.pizzastore.model.Pizza;
 import it.prova.pizzastore.web.listener.LocalEntityManagerFactoryListener;
 
 public class OrdineServiceImpl implements OrdineService {
@@ -18,7 +19,7 @@ public class OrdineServiceImpl implements OrdineService {
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
-		
+
 			ordineDAO.setEntityManager(entityManager);
 
 			return ordineDAO.list();
@@ -36,7 +37,7 @@ public class OrdineServiceImpl implements OrdineService {
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
-		
+
 			ordineDAO.setEntityManager(entityManager);
 
 			return ordineDAO.findOne(id).orElse(null);
@@ -54,7 +55,7 @@ public class OrdineServiceImpl implements OrdineService {
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
-		
+
 			ordineDAO.setEntityManager(entityManager);
 
 			return ordineDAO.findOneEagerClienteEUtente(id);
@@ -72,7 +73,7 @@ public class OrdineServiceImpl implements OrdineService {
 		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
 
 		try {
-		
+
 			ordineDAO.setEntityManager(entityManager);
 
 			return ordineDAO.findOneEagerAll(id);
@@ -137,6 +138,67 @@ public class OrdineServiceImpl implements OrdineService {
 	public void setOrdineDAO(OrdineDAO ordineDAO) {
 		this.ordineDAO = ordineDAO;
 
+	}
+
+	@Override
+	public Integer calcolaPrezzoOrdine(Ordine ordineInstance) throws Exception {
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		Integer result = 0;
+		try {
+			entityManager.getTransaction().begin();
+
+			ordineDAO.setEntityManager(entityManager);
+
+			// inserisco il nuovo ordine
+			
+
+			// chiamo il metodo somma dirttamente su ordineInstance, usando le proprietà che
+			// ci da la finestra transazionale
+			result = ordineDAO.sumPizzeOrdine(ordineDAO.findOneEagerAll(ordineInstance.getId()));
+
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+			return result;
+
+		}
+		
+
+	}
+	
+	public void aggiungiPizza(Ordine ordineInstance, Pizza pizza)  throws Exception{
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			entityManager.getTransaction().begin();
+
+			ordineDAO.setEntityManager(entityManager);
+
+			// inserisco il nuovo ordine
+			ordineInstance = entityManager.merge(ordineInstance);
+			
+			pizza = entityManager.merge(pizza);
+			
+			ordineInstance.getPizze().add(pizza);
+			
+
+			// chiamo il metodo somma dirttamente su ordineInstance, usando le proprietà che
+			// ci da la finestra transazionale
+
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+
+		}
 	}
 
 }

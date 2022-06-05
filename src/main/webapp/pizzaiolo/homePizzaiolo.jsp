@@ -53,8 +53,11 @@
 				        <h1 class="display-5 fw-bold">Benvenuto alla Gestione Degli ordini e delle pizze h1>
 				        <p class="col-md-8 fs-4">Usa le nostre ultimissime funzionalità che ti permetteranno di gestire al meglio i tuoi Ordini</p>
 				        <a class="btn btn-primary btn-lg" href="ExecuteGestionePizzeServlet">Gestione Pizze</a>
+				        <a class="btn btn-primary btn-lg" href="PrepareInsertOrdineServlet">Crea Nuovo Ordine</a>
 				      </div>
 			    </div>
+			    
+			    
 			    
 			  </div>
 			  
