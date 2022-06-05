@@ -77,7 +77,7 @@ public class ExecuteLoginServlet extends HttpServlet {
 
 				// è un fattorino lo mando a resultFattorino.jsp
 				if (UtilityForm.controllaSeRuoloPresenteInRuoliDiUtente(utenteInstance.getRuoli(), "FATTORINO_ROLE")) {
-					request.getRequestDispatcher("resultFattorino").forward(request, response);  //TODO SERVLET CHE RIPORTANO ALLA FINESTRA BASE
+					request.getRequestDispatcher("ExecuteListPizzaioloServlet").forward(request, response);  //TODO SERVLET CHE RIPORTANO ALLA FINESTRA BASE
 
 					return;
 				}
