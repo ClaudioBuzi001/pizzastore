@@ -1,7 +1,6 @@
 package it.prova.pizzastore.web.servlet.ordine;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -75,8 +74,12 @@ public class ExecuteInsertOrdineServlet extends HttpServlet {
 			//aggiorno
 			MyServiceFactory.getOrdineServiceInstance().aggiorna(ordineInstance);
 			
-			request.setAttribute("sommaTotale",
-					MyServiceFactory.getOrdineServiceInstance().calcolaPrezzoOrdine(ordineInstance));
+			Integer costo = MyServiceFactory.getOrdineServiceInstance().calcolaPrezzoOrdine(ordineInstance);
+			ordineInstance.setCostoTotaleOrdine(Double.parseDouble(costo.toString()));
+
+			MyServiceFactory.getOrdineServiceInstance().aggiorna(ordineInstance);
+			
+			request.setAttribute("sommaTotale",costo);
 
 
 		} catch (Exception e) {
