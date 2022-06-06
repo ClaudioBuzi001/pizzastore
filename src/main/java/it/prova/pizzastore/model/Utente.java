@@ -18,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "utente")
 public class Utente {
@@ -204,5 +205,30 @@ public class Utente {
 	public void setOrdini(Set<Ordine> ordini) {
 		this.ordini = ordini;
 	}
+	
+	public boolean isAdmin() {
+		for (Ruolo ruoloItem : ruoli) {
+			if (ruoloItem.getCodice().equals(Ruolo.ADMIN_ROLE))
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean isPizzaiolo() {
+		for (Ruolo ruoloItem : ruoli) {
+			if (ruoloItem.getCodice().equals(Ruolo.PIZAIOLO_ROLE))
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean isFattorino() {
+		for (Ruolo ruoloItem : ruoli) {
+			if (ruoloItem.getCodice().equals(Ruolo.FATTORINO_ROLE))
+				return true;
+		}
+		return false;
+	}
+	
 
 }

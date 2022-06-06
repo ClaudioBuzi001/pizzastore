@@ -12,7 +12,7 @@
 	   <body class="d-flex flex-column h-100">
 	   
 	   		<!-- Fixed navbar -->
-	   		<jsp:include page="/cliente/navbarAdmin.jsp"></jsp:include>
+	   		<jsp:include page="../navbar.jsp"></jsp:include>
 	    
 			
 			<!-- Begin page content -->

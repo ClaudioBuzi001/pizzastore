@@ -83,7 +83,7 @@ public class LocalEntityManagerFactoryListener implements ServletContextListener
 		}
 
 		// se il metodocheck returna false, allora ci creaiamo un nuovo admin
-		if (!utenteServiceInstance.checkSeCeAlmenoUn(new Ruolo("Administrator", "ADMIN_ROLE"))) {
+		if (!utenteServiceInstance.checkSeCeAlmenoUn(ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", "ADMIN_ROLE"))) {
 
 			HashSet<Ruolo> ruolo = new HashSet<Ruolo>();
 			ruolo.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", "ADMIN_ROLE"));
@@ -94,7 +94,7 @@ public class LocalEntityManagerFactoryListener implements ServletContextListener
 
 		}
 
-		if (!utenteServiceInstance.checkSeCeAlmenoUn(new Ruolo("Pizzaiolo", "PIZZAIOLO_ROLE"))) {
+		if (!utenteServiceInstance.checkSeCeAlmenoUn(ruoloServiceInstance.cercaPerDescrizioneECodice("Pizzaiolo", "PIZZAIOLO_ROLE"))) {
 			HashSet<Ruolo> ruolo = new HashSet<Ruolo>();
 			ruolo.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Pizzaiolo", "PIZZAIOLO_ROLE"));
 
@@ -105,7 +105,7 @@ public class LocalEntityManagerFactoryListener implements ServletContextListener
 
 		}
 
-		if (!utenteServiceInstance.checkSeCeAlmenoUn(new Ruolo("Fattorino", "FATTORINO_ROLE"))) {
+		if (!utenteServiceInstance.checkSeCeAlmenoUn(ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino", "FATTORINO_ROLE"))) {
 			HashSet<Ruolo> ruolo = new HashSet<Ruolo>();
 			ruolo.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino", "FATTORINO_ROLE"));
 
@@ -115,5 +115,57 @@ public class LocalEntityManagerFactoryListener implements ServletContextListener
 			utenteServiceInstance.inserisciNuovo(fattorino);
 		}
 	}
+	
+	
+	
+//	private void initAdminUserAndRuoli() throws Exception {
+//		RuoloService ruoloServiceInstance = MyServiceFactory.getRuoloServiceInstance();
+//		UtenteService utenteServiceInstance = MyServiceFactory.getUtenteServiceInstance();
+//
+//		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", "ADMIN_ROLE") == null) {
+//		ruoloServiceInstance.inserisciNuovo(new Ruolo("Administrator", "ADMIN_ROLE"));
+//		}
+//
+//		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Pizzaiolo User", "PIZZAIOLO_ROLE") == null) {
+//		ruoloServiceInstance.inserisciNuovo(new Ruolo("Pizzaiolo User", "PIZZAIOLO_ROLE"));
+//		}
+//
+//		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino User", "FATTORINO_ROLE") == null) {
+//		ruoloServiceInstance.inserisciNuovo(new Ruolo("Fattorino User", "FATTORINO_ROLE"));
+//		}
+//
+//		if (utenteServiceInstance.findByUsernameAndPassword("admin", "admin") == null) {
+//		Utente admin = new Utente("admin", "admin", "Mario", "Rossi", new Date());
+//		admin.setStato(StatoUtente.ATTIVO);
+//		utenteServiceInstance.inserisciNuovo(admin);
+//		utenteServiceInstance.aggiungiRuolo(admin,
+//		ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", "ADMIN_ROLE"));
+//		}
+//
+//		if (utenteServiceInstance.findByUsernameAndPassword("pizzaiolouser", "pizzaiolouser") == null) {
+//		Utente pizzaiolouser = new Utente("pizzaiolouser", "pizzaiolouser", "Vittorio", "Scatafrulli", new Date());
+//		pizzaiolouser.setStato(StatoUtente.ATTIVO);
+//		utenteServiceInstance.inserisciNuovo(pizzaiolouser);
+//		utenteServiceInstance.aggiungiRuolo(pizzaiolouser,
+//		ruoloServiceInstance.cercaPerDescrizioneECodice("Pizzaiolo User", "PIZZAIOLO_ROLE"));
+//		}
+//
+//		if (utenteServiceInstance.findByUsernameAndPassword("fattorinouser", "fattorinouser") == null) {
+//		Utente fattorinouser = new Utente("fattorinouser", "fattorinouser", "Maria", "Italia", new Date());
+//		fattorinouser.setStato(StatoUtente.ATTIVO);
+//		utenteServiceInstance.inserisciNuovo(fattorinouser);
+//		utenteServiceInstance.aggiungiRuolo(fattorinouser,
+//		ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino User", "FATTORINO_ROLE"));
+//		}
+//
+//		if (utenteServiceInstance.findByUsernameAndPassword("utentefattorino", "utentefattorino") == null) {
+//		Utente utentefattorino = new Utente("utentefattorino", "utentefattorino", "Franco", "Gallinari", new Date());
+//		utentefattorino.setStato(StatoUtente.ATTIVO);
+//		utenteServiceInstance.inserisciNuovo(utentefattorino);
+//		utenteServiceInstance.aggiungiRuolo(utentefattorino,
+//		ruoloServiceInstance.cercaPerDescrizioneECodice("Fattorino User", "FATTORINO_ROLE"));
+//		}
+//		}
+
 
 }
